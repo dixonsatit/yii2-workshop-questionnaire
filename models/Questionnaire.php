@@ -176,114 +176,96 @@ class Questionnaire extends \yii\db\ActiveRecord
         return array_key_exists($choiceId, $items) ? ArrayHelper::getValue($items,$choiceId) : null;
     }
 
-    public static function getDataLineChart(){
+    public static function getAllData(){
 
         $datasets =  Yii::$app->db->createCommand(
-            'SELECT 
-            sum(if(questionnaire.choice_content=1,1,0)) as one, 
-            sum(if(questionnaire.choice_content=2,1,0))as twe, 
-            sum(if(questionnaire.choice_content=3,1,0))as three, 
-            sum(if(questionnaire.choice_content=4,1,0))as four, 
-            sum(if(questionnaire.choice_content=5,1,0)) as five
-            FROM questionnaire
- UNION          
- SELECT 
-            sum(if(questionnaire.choice_contest=1,1,0)) as one, 
-            sum(if(questionnaire.choice_contest=2,1,0))as twe, 
-            sum(if(questionnaire.choice_contest=3,1,0))as three, 
-            sum(if(questionnaire.choice_contest=4,1,0))as four, 
-            sum(if(questionnaire.choice_contest=5,1,0)) as five
-            FROM questionnaire
-
- UNION          
- SELECT 
-            sum(if(questionnaire.choice_environment=1,1,0)) as one, 
-            sum(if(questionnaire.choice_environment=2,1,0))as twe, 
-            sum(if(questionnaire.choice_environment=3,1,0))as three, 
-            sum(if(questionnaire.choice_environment=4,1,0))as four, 
-            sum(if(questionnaire.choice_environment=5,1,0)) as five
-            FROM questionnaire
-
- UNION          
- SELECT 
-            sum(if(questionnaire.choice_food=1,1,0)) as one, 
-            sum(if(questionnaire.choice_food=2,1,0))as twe, 
-            sum(if(questionnaire.choice_food=3,1,0))as three, 
-            sum(if(questionnaire.choice_food=4,1,0))as four, 
-            sum(if(questionnaire.choice_food=5,1,0)) as five
-            FROM questionnaire
-
- UNION          
- SELECT 
-            sum(if(questionnaire.choice_ict=1,1,0)) as one, 
-            sum(if(questionnaire.choice_ict=2,1,0))as twe, 
-            sum(if(questionnaire.choice_ict=3,1,0))as three, 
-            sum(if(questionnaire.choice_ict=4,1,0))as four, 
-            sum(if(questionnaire.choice_ict=5,1,0)) as five
-            FROM questionnaire
-
- UNION          
- SELECT 
-            sum(if(questionnaire.choice_location=1,1,0)) as one, 
-            sum(if(questionnaire.choice_location=2,1,0))as twe, 
-            sum(if(questionnaire.choice_location=3,1,0))as three, 
-            sum(if(questionnaire.choice_location=4,1,0))as four, 
-            sum(if(questionnaire.choice_location=5,1,0)) as five
-            FROM questionnaire
-
- UNION          
- SELECT 
-            sum(if(questionnaire.choice_news=1,1,0)) as one, 
-            sum(if(questionnaire.choice_news=2,1,0))as twe, 
-            sum(if(questionnaire.choice_news=3,1,0))as three, 
-            sum(if(questionnaire.choice_news=4,1,0))as four, 
-            sum(if(questionnaire.choice_news=5,1,0)) as five
-            FROM questionnaire
- UNION          
- SELECT 
-            sum(if(questionnaire.choice_register=1,1,0)) as one, 
-            sum(if(questionnaire.choice_register=2,1,0))as twe, 
-            sum(if(questionnaire.choice_register=3,1,0))as three, 
-            sum(if(questionnaire.choice_register=4,1,0))as four, 
-            sum(if(questionnaire.choice_register=5,1,0)) as five
-            FROM questionnaire
- UNION          
- SELECT 
-            sum(if(questionnaire.choice_overall=1,1,0)) as one, 
-            sum(if(questionnaire.choice_overall=2,1,0))as twe, 
-            sum(if(questionnaire.choice_overall=3,1,0))as three, 
-            sum(if(questionnaire.choice_overall=4,1,0))as four, 
-            sum(if(questionnaire.choice_overall=5,1,0)) as five
-            FROM questionnaire
+            'SELECT
+                        sum(if(questionnaire.choice_content=1,1,0)) as "1",
+                        sum(if(questionnaire.choice_content=2,1,0))as "2",
+                        sum(if(questionnaire.choice_content=3,1,0))as "3",
+                        sum(if(questionnaire.choice_content=4,1,0))as "4",
+                        sum(if(questionnaire.choice_content=5,1,0)) as "5"
+                        FROM questionnaire
+             UNION
+             SELECT
+                        sum(if(questionnaire.choice_contest=1,1,0)) as "1",
+                        sum(if(questionnaire.choice_contest=2,1,0))as "2",
+                        sum(if(questionnaire.choice_contest=3,1,0))as "3",
+                        sum(if(questionnaire.choice_contest=4,1,0))as "4",
+                        sum(if(questionnaire.choice_contest=5,1,0)) as "5"
+                        FROM questionnaire
+             UNION
+             SELECT
+                        sum(if(questionnaire.choice_environment=1,1,0)) as "1",
+                        sum(if(questionnaire.choice_environment=2,1,0))as "2",
+                        sum(if(questionnaire.choice_environment=3,1,0))as "3",
+                        sum(if(questionnaire.choice_environment=4,1,0))as "4",
+                        sum(if(questionnaire.choice_environment=5,1,0)) as "5"
+                        FROM questionnaire
+             UNION
+             SELECT
+                        sum(if(questionnaire.choice_food=1,1,0)) as "1",
+                        sum(if(questionnaire.choice_food=2,1,0))as "2",
+                        sum(if(questionnaire.choice_food=3,1,0))as "3",
+                        sum(if(questionnaire.choice_food=4,1,0))as "4",
+                        sum(if(questionnaire.choice_food=5,1,0)) as "5"
+                        FROM questionnaire
+             UNION
+             SELECT
+                        sum(if(questionnaire.choice_ict=1,1,0)) as "1",
+                        sum(if(questionnaire.choice_ict=2,1,0))as "2",
+                        sum(if(questionnaire.choice_ict=3,1,0))as "3",
+                        sum(if(questionnaire.choice_ict=4,1,0))as "4",
+                        sum(if(questionnaire.choice_ict=5,1,0)) as "5"
+                        FROM questionnaire
+             UNION
+             SELECT
+                        sum(if(questionnaire.choice_location=1,1,0)) as "1",
+                        sum(if(questionnaire.choice_location=2,1,0))as "2",
+                        sum(if(questionnaire.choice_location=3,1,0))as "3",
+                        sum(if(questionnaire.choice_location=4,1,0))as "4",
+                        sum(if(questionnaire.choice_location=5,1,0)) as "5"
+                        FROM questionnaire
+             UNION
+             SELECT
+                        sum(if(questionnaire.choice_news=1,1,0)) as "1",
+                        sum(if(questionnaire.choice_news=2,1,0))as "2",
+                        sum(if(questionnaire.choice_news=3,1,0))as "3",
+                        sum(if(questionnaire.choice_news=4,1,0))as "4",
+                        sum(if(questionnaire.choice_news=5,1,0)) as "5"
+                        FROM questionnaire
+             UNION
+             SELECT
+                        sum(if(questionnaire.choice_register=1,1,0)) as "1",
+                        sum(if(questionnaire.choice_register=2,1,0))as "2",
+                        sum(if(questionnaire.choice_register=3,1,0))as "3",
+                        sum(if(questionnaire.choice_register=4,1,0))as "4",
+                        sum(if(questionnaire.choice_register=5,1,0)) as "5"
+                        FROM questionnaire
+             UNION
+             SELECT
+                        sum(if(questionnaire.choice_overall=1,1,0)) as "1",
+                        sum(if(questionnaire.choice_overall=2,1,0))as "2",
+                        sum(if(questionnaire.choice_overall=3,1,0))as "3",
+                        sum(if(questionnaire.choice_overall=4,1,0))as "4",
+                        sum(if(questionnaire.choice_overall=5,1,0)) as "5"
+                        FROM questionnaire
             ')->queryAll();
-
-        $labels = array_values(self::itemsAilas('office'));
-
-        return self::createDataSet($labels,$datasets);
+        return $datasets;
 
     }
 
-    public static function createDataSet(array $labels,array $datasets){
-        return [
-            'labels' => ['Content','Contest','Seminar','ICT','food','news','register','environment','audiovisual','location','over_all'],
-            'datasets' => [
-                [
-                    'fillColor' => "rgba(220,220,220,0.5)",
-                    'strokeColor' => "rgba(220,220,220,1)",
-                    'pointColor' => "rgba(220,220,220,1)",
-                    'pointStrokeColor' => "#fff",
-                    'data' => $datasets[0]
-                ],
-                [
-                    'fillColor' => "rgba(151,187,205,0.5)",
-                    'strokeColor' => "rgba(151,187,205,1)",
-                    'pointColor' => "rgba(151,187,205,1)",
-                    'pointStrokeColor' => "#fff",
-                    'data' => $datasets[1]
-                ]
-            ]
-        ];
+    public static function createPieDataSet(){
+        $labels =  self::itemsAilas('choice');
+        $rawData = self::getAllData();
+        $data = [];
+        foreach ($rawData as $value) {
+          $items = [];
+          foreach($value as $k => $v){
+            $items[$labels[$k]] = $v;
+          }
+          $data[] = Yii::$app->chartJsData->createPieDataSet($items);
+        }
+        return $data;
     }
-
-
 }

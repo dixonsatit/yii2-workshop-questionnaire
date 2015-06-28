@@ -32,7 +32,9 @@ class QuestionnaireController extends Controller
      */
     public function actionResult(){
 
-        $lineChart = Questionnaire::getDataLineChart();
+        $lineChart = Questionnaire::createPieDataSet();
+
+    
 
         return $this->render('result',[
             'lineChart'=> $lineChart

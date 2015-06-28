@@ -7,9 +7,12 @@ $config = [
     'basePath' => dirname(__DIR__),
     'bootstrap' => ['log'],
     'components' => [
-     'formatter'=>[
-        'class'=>'dixonsatit\thaiYearFormatter\ThaiYearFormatter',
-    ],
+         'chartJsData'=>[
+            'class'=>'app\components\ChartJsData'
+         ],
+         'formatter'=>[
+            'class'=>'dixonsatit\thaiYearFormatter\ThaiYearFormatter',
+        ],
         'request' => [
             // !!! insert a secret key in the following (if it is empty) - this is required by cookie validation
             'cookieValidationKey' => 'YJRQeyv39PBEo2Z4d32daihkkBk60PUV',
