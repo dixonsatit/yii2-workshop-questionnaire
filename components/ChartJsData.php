@@ -7,27 +7,31 @@ use yii\base\InvalidConfigException;
 class ChartJsData extends Component {
 
   public $dataSet = [];
+  private $pieColor = [];
 
-  private function _getPieData(){
-
+  public function setPieColor(array $colors){
+    $this->pieColor = $colors;
   }
 
   public function createPieDataSet($data){
     $dataset = [];
-    foreach ($data as $key => $label) {
+    $i = 1;
+    foreach ($data as $label => $value) {
+      extract($this->pieColor[$i]);
       $dataset[] = [
-          'value'=> $key,
-          'color'=> $this->getRandomColor(),
-          'highlight'=>$this->getRandomColor(),
+          'value'=> $value,
+          'color'=>$color,
+          'highlight'=>$highlightColor,
           'label'=> $label
       ];
+      $i++;
     }
     return $dataset;
   }
 
   private function getRandomColor()
   {
-    return dechex(rand(0x000000, 0xFFFFFF));
+    return "#".dechex(rand(0x000000, 0xFFFFFF));
   }
 
 }

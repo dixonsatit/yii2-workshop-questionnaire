@@ -47,6 +47,18 @@ class Questionnaire extends \yii\db\ActiveRecord
     const OCCUPATION_HEALTH     = 5;
     const OCCUPATION_OTHER      = 6;
 
+    const TYPE_CONTENT = 1;
+    const TYPE_CONTEST = 2;
+    const TYPE_SEMINAR = 3;
+    const TYPE_ICT = 4;
+    const TYPE_FOOD = 5;
+    const TYPE_NEWS = 6;
+    const TYPE_REGISTER = 7;
+    const TYPE_ENVIRONMENT = 8;
+    const TYPE_AUDIOVISUAL = 9;
+    const TYPE_LOCATION = 10;
+    const TYPE_OVER_ALL = 11;
+
     public function behaviors(){
         return [
             TimestampBehavior::className()
@@ -134,7 +146,20 @@ class Questionnaire extends \yii\db\ActiveRecord
                 self::CHOICE_THREE  => 'ปานกลาง',
                 self::CHOICE_FOUR   => 'มาก',
                 self::CHOICE_FIVE   => 'มากที่สุด'
-            ]
+            ],
+            'type'=>[
+             self::TYPE_CONTENT => 1,
+             self::TYPE_CONTEST => 2,
+             self::TYPE_SEMINAR => 3,
+             self::TYPE_ICT => 4,
+             self::TYPE_FOOD => 5,
+             self::TYPE_NEWS => 6,
+             self::TYPE_REGISTER => 7,
+             self::TYPE_ENVIRONMENT => 8,
+             self::TYPE_AUDIOVISUAL => 9,
+             self::TYPE_LOCATION => 10,
+             self::TYPE_OVER_ALL => 11
+           ]
         ];
 
         return array_key_exists($type, $items) ? ArrayHelper::getValue($items,$type) : [];
@@ -237,17 +262,17 @@ class Questionnaire extends \yii\db\ActiveRecord
              UNION
              SELECT
                         sum(if(questionnaire.choice_register=1,1,0)) as "1",
-                        sum(if(questionnaire.choice_register=2,1,0))as "2",
-                        sum(if(questionnaire.choice_register=3,1,0))as "3",
-                        sum(if(questionnaire.choice_register=4,1,0))as "4",
+                        sum(if(questionnaire.choice_register=2,1,0)) as "2",
+                        sum(if(questionnaire.choice_register=3,1,0)) as "3",
+                        sum(if(questionnaire.choice_register=4,1,0)) as "4",
                         sum(if(questionnaire.choice_register=5,1,0)) as "5"
                         FROM questionnaire
              UNION
              SELECT
                         sum(if(questionnaire.choice_overall=1,1,0)) as "1",
-                        sum(if(questionnaire.choice_overall=2,1,0))as "2",
-                        sum(if(questionnaire.choice_overall=3,1,0))as "3",
-                        sum(if(questionnaire.choice_overall=4,1,0))as "4",
+                        sum(if(questionnaire.choice_overall=2,1,0)) as "2",
+                        sum(if(questionnaire.choice_overall=3,1,0)) as "3",
+                        sum(if(questionnaire.choice_overall=4,1,0)) as "4",
                         sum(if(questionnaire.choice_overall=5,1,0)) as "5"
                         FROM questionnaire
             ')->queryAll();
@@ -256,15 +281,26 @@ class Questionnaire extends \yii\db\ActiveRecord
     }
 
     public static function createPieDataSet(){
+
         $labels =  self::itemsAilas('choice');
         $rawData = self::getAllData();
+        $color = [];
+        $cloor =   Yii::$app->chartJsData->setPieColor([
+            1 => ['color'=>'#16a085','highlightColor'=>'#16a085'],
+            2 => ['color'=>'#27ae60','highlightColor'=>'#27ae60'],
+            3 => ['color'=>'#8e44ad','highlightColor'=>'#8e44ad'],
+            4 => ['color'=>'#e74c3c','highlightColor'=>'#e74c3c'],
+            5 => ['color'=>'#e67e22','highlightColor'=>'#e67e22']
+        ]);
         $data = [];
+        $i=1;
         foreach ($rawData as $value) {
           $items = [];
           foreach($value as $k => $v){
             $items[$labels[$k]] = $v;
           }
-          $data[] = Yii::$app->chartJsData->createPieDataSet($items);
+          $data[$i] = Yii::$app->chartJsData->createPieDataSet($items);
+          $i++;
         }
         return $data;
     }

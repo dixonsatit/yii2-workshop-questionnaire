@@ -1,8 +1,10 @@
 <?php
 use dosamigos\chartjs\ChartJs;
+use app\models\Questionnaire;
 //Yii::$app->ChartJsData->createPieDataSet();
-   \yii\helpers\Vardumper::dump($lineChart,10,true);
+   \yii\helpers\Vardumper::dump($pieChart,10,true);
 ?>
+
 
 <?= ChartJs::widget([
     'type' => 'Pie',
@@ -10,25 +12,38 @@ use dosamigos\chartjs\ChartJs;
         'height' => 100,
         'width' => 100
     ],
-    'data' => [
-        [
-            'value'=> 300,
-            'color'=>"#F7464A",
-            'highlight'=> "#FF5A5E",
-            'label'=> "Red"
-        ],
-        [
-            'value'=> 50,
-            'color'=> "#46BFBD",
-            'highlight'=> "#5AD3D1",
-            'label'=> "Green"
-        ],
-        [
-            'value'=> 100,
-            'color'=> "#FDB45C",
-            'highlight'=> "#FFC870",
-            'label'=> "Yellow"
-        ]
-    ]
-]);
-?>
+    'data' => $pieChart[Questionnaire::TYPE_CONTENT]
+]);?>
+
+<?= ChartJs::widget([
+    'type' => 'Pie',
+    'options' => [
+        'height' => 100,
+        'width' => 100
+    ],
+    'data' => $pieChart[Questionnaire::TYPE_CONTEST]
+]);?>
+<?= ChartJs::widget([
+    'type' => 'Pie',
+    'options' => [
+        'height' => 100,
+        'width' => 100
+    ],
+    'data' => $pieChart[Questionnaire::TYPE_ICT]
+]);?>
+<?= ChartJs::widget([
+    'type' => 'Pie',
+    'options' => [
+        'height' => 100,
+        'width' => 100
+    ],
+    'data' => $pieChart[Questionnaire::TYPE_ICT]
+]);?>
+<?= ChartJs::widget([
+    'type' => 'Pie',
+    'options' => [
+        'height' => 100,
+        'width' => 100
+    ],
+    'data' => $pieChart[Questionnaire::TYPE_ICT]
+]);?>
